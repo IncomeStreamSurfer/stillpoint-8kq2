@@ -1,0 +1,55 @@
+@import "tailwindcss";
+
+@theme {
+  --color-cream-50: #FDFBF7;
+  --color-cream-100: #FAF7F2;
+  --color-cream-200: #F3EEE4;
+  --color-cream-300: #E8DFCE;
+  --color-purple-50: #F5F0FB;
+  --color-purple-100: #E9DFF5;
+  --color-purple-200: #D2BFEC;
+  --color-purple-400: #9F7AD9;
+  --color-purple-500: #8557C8;
+  --color-purple-600: #6B46C1;
+  --color-purple-700: #553799;
+  --color-purple-900: #2C1A57;
+  --font-display: "Cormorant Garamond", ui-serif, Georgia, serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+html {
+  background: var(--color-cream-100);
+  color: var(--color-purple-900);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+}
+
+/* Soft blurred bloom used behind hero */
+.bloom {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(72px);
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #6B46C1 0%, #9F7AD9 55%, #553799 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@keyframes breath {
+  0%, 100% { transform: scale(1); opacity: 0.55; }
+  50% { transform: scale(1.08); opacity: 0.8; }
+}
+
+.breath {
+  animation: breath 7s ease-in-out infinite;
+}
