@@ -1,0 +1,22 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Privacy · Stillpoint" description="How Stillpoint handles your data — briefly, plainly, and with respect." path="/privacy">
+  <Nav />
+  <main class="max-w-3xl mx-auto px-6 py-20 prose-like">
+    <h1 class="font-display text-5xl text-purple-900">Privacy</h1>
+    <p class="mt-6 text-purple-900/70 leading-relaxed">
+      We collect the smallest amount of information possible. If you join the waitlist we store your email address in a
+      Supabase database on our infrastructure, and send you a confirmation via Resend. We do not share your email
+      with third parties. We do not run ads. We do not track you.
+    </p>
+    <p class="mt-4 text-purple-900/70 leading-relaxed">
+      When the app ships, practice history stays on your device. Anonymous crash reports may be used to fix bugs and
+      are never tied to your identity. You can request deletion of your waitlist record by replying to any email we send you.
+    </p>
+  </main>
+  <Footer />
+</Layout>

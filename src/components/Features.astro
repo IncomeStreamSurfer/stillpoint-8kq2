@@ -1,0 +1,83 @@
+---
+const features = [
+  {
+    title: 'Guided sessions',
+    body: 'From three minutes to forty. Teachers who sound like humans, not wellness influencers.',
+    icon: 'leaf',
+  },
+  {
+    title: 'Breath timers',
+    body: 'Box breathing, 4-7-8, coherence. Soft haptics instead of beeping alarms.',
+    icon: 'wave',
+  },
+  {
+    title: 'Sleep stories',
+    body: 'Bedtime narratives recorded on analog tape. The kind that end before the last chapter.',
+    icon: 'moon',
+  },
+  {
+    title: 'Offline library',
+    body: 'Download once, meditate anywhere. No signal, no server, no excuses.',
+    icon: 'download',
+  },
+  {
+    title: 'No streaks, no nagging',
+    body: 'Meditation is not a game. We removed the gamification. Come back when you want to.',
+    icon: 'heart',
+  },
+  {
+    title: 'Private by design',
+    body: 'Your practice data stays on your device. We sell nothing, track nothing, share nothing.',
+    icon: 'shield',
+  },
+];
+
+function iconPath(name: string): string {
+  switch (name) {
+    case 'leaf':
+      return 'M5 21c7 0 14-7 14-14V5h-2C10 5 3 12 3 19v2h2Z M9 15c2-4 5-7 9-9';
+    case 'wave':
+      return 'M3 12c2-4 4-4 6 0s4 4 6 0 4-4 6 0';
+    case 'moon':
+      return 'M21 13a9 9 0 1 1-10-10 7 7 0 0 0 10 10Z';
+    case 'download':
+      return 'M12 3v12m0 0 4-4m-4 4-4-4 M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2';
+    case 'heart':
+      return 'M20.8 6.2a5.5 5.5 0 0 0-7.8 0L12 7.2l-1-1a5.5 5.5 0 0 0-7.8 7.8L12 21.8l8.8-7.8a5.5 5.5 0 0 0 0-7.8Z';
+    case 'shield':
+      return 'M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6l-8-3Z';
+    default:
+      return '';
+  }
+}
+---
+
+<section id="features" class="relative py-24 md:py-32 bg-cream-50 border-y border-cream-300">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="max-w-2xl">
+      <div class="text-xs uppercase tracking-[0.25em] text-purple-600">Features</div>
+      <h2 class="mt-3 font-display text-4xl md:text-5xl leading-tight text-purple-900">
+        Everything you need. <br class="hidden md:block" />
+        Nothing you don't.
+      </h2>
+      <p class="mt-5 text-lg text-purple-900/70">
+        Stillpoint is built around six quiet features. No social feed. No coach bot. Just tools for
+        being present.
+      </p>
+    </div>
+
+    <div class="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {features.map((f) => (
+        <div class="group relative rounded-3xl border border-cream-300 bg-cream-100 p-7 hover:border-purple-400 transition-colors">
+          <div class="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-purple-100 text-purple-600">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d={iconPath(f.icon)} />
+            </svg>
+          </div>
+          <h3 class="mt-5 font-display text-2xl text-purple-900">{f.title}</h3>
+          <p class="mt-2 text-[15px] leading-relaxed text-purple-900/70">{f.body}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

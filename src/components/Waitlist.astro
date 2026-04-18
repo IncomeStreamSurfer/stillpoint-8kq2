@@ -1,0 +1,101 @@
+---
+---
+
+<section id="waitlist" class="relative py-24 md:py-32 bg-gradient-to-b from-cream-100 to-purple-50">
+  <div class="max-w-3xl mx-auto px-6 text-center">
+    <div class="text-xs uppercase tracking-[0.25em] text-purple-600">Join the waitlist</div>
+    <h2 class="mt-3 font-display text-4xl md:text-5xl leading-tight text-purple-900">
+      Be the first to breathe with us.
+    </h2>
+    <p class="mt-5 text-lg text-purple-900/70">
+      Early access opens in waves. Drop your email and we'll send your invite — plus a short confirmation so you know we got it.
+    </p>
+
+    <form
+      id="waitlist-form"
+      class="mt-10 mx-auto flex flex-col sm:flex-row items-stretch gap-3 max-w-xl"
+      novalidate
+    >
+      <label for="email" class="sr-only">Email address</label>
+      <input
+        id="email"
+        name="email"
+        type="email"
+        inputmode="email"
+        autocomplete="email"
+        required
+        placeholder="you@example.com"
+        class="flex-1 rounded-full border border-purple-200 bg-cream-50 px-5 py-3 text-[15px] text-purple-900 placeholder-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+      />
+      <button
+        type="submit"
+        class="inline-flex items-center justify-center gap-2 rounded-full bg-purple-600 px-6 py-3 text-sm font-semibold text-cream-50 shadow-md hover:bg-purple-700 disabled:opacity-60 disabled:cursor-not-allowed transition-colors"
+      >
+        <span data-label>Join waitlist</span>
+        <svg data-icon width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </button>
+    </form>
+
+    <p
+      id="waitlist-msg"
+      role="status"
+      aria-live="polite"
+      class="mt-5 min-h-[1.5rem] text-sm text-purple-700"
+    ></p>
+
+    <p class="mt-8 text-xs text-purple-700/60">
+      We only use your email to send your invite and the occasional quiet update. No spam. Unsubscribe any time.
+    </p>
+  </div>
+</section>
+
+<script is:inline>
+  (() => {
+    const form = document.getElementById('waitlist-form');
+    const msg = document.getElementById('waitlist-msg');
+    if (!form || !msg) return;
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const input = form.querySelector('input[name="email"]');
+      const button = form.querySelector('button[type="submit"]');
+      const label = form.querySelector('[data-label]');
+      const email = (input && 'value' in input ? String(input.value) : '').trim();
+
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        msg.textContent = 'Please enter a valid email.';
+        msg.style.color = '#7f1d1d';
+        return;
+      }
+
+      msg.textContent = '';
+      if (button) button.setAttribute('disabled', 'true');
+      if (label) label.textContent = 'Joining…';
+
+      try {
+        const res = await fetch('/api/waitlist', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, source: 'landing' }),
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) {
+          msg.textContent = data && data.error ? data.error : 'Something went wrong. Please try again.';
+          msg.style.color = '#7f1d1d';
+        } else {
+          msg.textContent = 'You\u2019re on the list. Check your inbox for a confirmation.';
+          msg.style.color = '#553799';
+          form.reset();
+        }
+      } catch {
+        msg.textContent = 'Network error. Please try again.';
+        msg.style.color = '#7f1d1d';
+      } finally {
+        if (button) button.removeAttribute('disabled');
+        if (label) label.textContent = 'Join waitlist';
+      }
+    });
+  })();
+</script>

@@ -1,0 +1,21 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Terms · Stillpoint" description="The terms under which Stillpoint is offered." path="/terms">
+  <Nav />
+  <main class="max-w-3xl mx-auto px-6 py-20">
+    <h1 class="font-display text-5xl text-purple-900">Terms</h1>
+    <p class="mt-6 text-purple-900/70 leading-relaxed">
+      Stillpoint is provided as-is during early access. Features may change. Content is for general wellbeing and
+      is not a substitute for professional medical or mental health advice. By joining the waitlist you agree to
+      receive transactional email related to your invitation.
+    </p>
+    <p class="mt-4 text-purple-900/70 leading-relaxed">
+      Full terms will be published before public launch. Questions? Reply to any email we send you.
+    </p>
+  </main>
+  <Footer />
+</Layout>

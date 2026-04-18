@@ -1,0 +1,79 @@
+---
+import '../styles/global.css';
+
+export interface Props {
+  title?: string;
+  description?: string;
+  path?: string;
+}
+
+const {
+  title = 'Stillpoint — A quieter place to meditate',
+  description = 'Stillpoint is a meditation app for people who want less noise. Short guided sessions, breath timers and sleep stories. Join the waitlist for early access.',
+  path = '/',
+} = Astro.props;
+
+const siteUrl = import.meta.env.PUBLIC_SITE_URL ?? 'https://stillpoint.vercel.app';
+const canonical = `${siteUrl.replace(/\/$/, '')}${path}`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': `${siteUrl}#org`,
+      name: 'Stillpoint',
+      url: siteUrl,
+      logo: `${siteUrl}/favicon.svg`,
+      sameAs: [],
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${siteUrl}#site`,
+      url: siteUrl,
+      name: 'Stillpoint',
+      publisher: { '@id': `${siteUrl}#org` },
+      inLanguage: 'en',
+    },
+    {
+      '@type': 'MobileApplication',
+      name: 'Stillpoint',
+      operatingSystem: 'iOS, Android',
+      applicationCategory: 'HealthApplication',
+      description,
+      offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+    },
+  ],
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="color-scheme" content="light" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Stillpoint" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </head>
+  <body class="bg-cream-100 text-purple-900 antialiased">
+    <slot />
+  </body>
+</html>
